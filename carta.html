@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#0a0a1a">
+<title>Buenos Días Mi Nikiii 💛</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: 'Georgia', serif;
+    transition: background 2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(12px, 3vw, 30px);
+    position: relative;
+  }
+
+  body.noche {
+    background: radial-gradient(ellipse at top, #1a1a3e 0%, #0a0a1a 70%);
+  }
+
+  body.dia {
+    background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 50%, #FFE4B5 100%);
+  }
+
+  /* ⭐ ESTRELLAS */
+  .estrella {
+    position: fixed;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: titilar 3s infinite alternate;
+    z-index: 0;
+  }
+  @keyframes titilar {
+    from { opacity: 0.2; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 🌙 LUNA */
+  .luna {
+    position: fixed;
+    top: clamp(5%, 8vh, 10%);
+    right: clamp(5%, 8vw, 12%);
+    width: clamp(50px, 10vw, 90px);
+    height: clamp(50px, 10vw, 90px);
+    border-radius: 50%;
+    background: #f5f0c8;
+    box-shadow: 0 0 40px 10px rgba(245,240,200,0.4);
+    z-index: 1;
+    transition: opacity 1.5s ease;
+  }
+
+  /* ☀️ SOL */
+  .sol {
+    position: fixed;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(90px, 18vw, 150px);
+    height: clamp(90px, 18vw, 150px);
+    border-radius: 50%;
+    background: radial-gradient(circle, #FFF176 0%, #FFD54F 50%, #FFB300 100%);
+    box-shadow: 0 0 80px 30px rgba(255,213,79,0.7),
+                0 0 150px 60px rgba(255,193,7,0.4);
+    z-index: 1;
+    opacity: 0;
+    transition: all 2s ease;
+  }
+  .sol.visible {
+    top: clamp(3%, 5vh, 6%);
+    opacity: 1;
+    animation: solLatido 4s ease-in-out infinite;
+  }
+  @keyframes solLatido {
+    0%, 100% { box-shadow: 0 0 80px 30px rgba(255,213,79,0.7), 0 0 150px 60px rgba(255,193,7,0.4); }
+    50% { box-shadow: 0 0 100px 40px rgba(255,213,79,0.9), 0 0 200px 80px rgba(255,193,7,0.6); }
+  }
+
+  /* ☁️ NUBES */
+  .nube {
+    position: fixed;
+    background: white;
+    border-radius: 100px;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 1.5s ease;
+  }
+  .nube::before, .nube::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+  }
+  .nube.visible { opacity: 0.9; }
+
+  .nube1 {
+    width: clamp(80px, 15vw, 130px);
+    height: clamp(25px, 5vw, 42px);
+    top: 15%; left: -180px;
+    animation: moverNube 40s linear infinite;
+  }
+  .nube1::before {
+    width: clamp(40px, 7vw, 65px); height: clamp(40px, 7vw, 65px);
+    top: -50%; left: 12%;
+  }
+  .nube1::after {
+    width: clamp(30px, 5vw, 48px); height: clamp(30px, 5vw, 48px);
+    top: -30%; left: 50%;
+  }
+
+  .nube2 {
+    width: clamp(65px, 12vw, 100px);
+    height: clamp(20px, 4vw, 34px);
+    top: 25%; left: -150px;
+    animation: moverNube 55s linear infinite;
+    animation-delay: -10s;
+  }
+  .nube2::before {
+    width: clamp(32px, 6vw, 50px); height: clamp(32px, 6vw, 50px);
+    top: -55%; left: 10%;
+  }
+  .nube2::after {
+    width: clamp(24px, 4.5vw, 40px); height: clamp(24px, 4.5vw, 40px);
+    top: -35%; left: 50%;
+  }
+
+  .nube3 {
+    width: clamp(95px, 17vw, 150px);
+    height: clamp(30px, 5.5vw, 48px);
+    top: 8%; left: -200px;
+    animation: moverNube 65s linear infinite;
+    animation-delay: -25s;
+  }
+  .nube3::before {
+    width: clamp(48px, 8vw, 75px); height: clamp(48px, 8vw, 75px);
+    top: -60%; left: 14%;
+  }
+  .nube3::after {
+    width: clamp(36px, 6vw, 55px); height: clamp(36px, 6vw, 55px);
+    top: -35%; left: 52%;
+  }
+
+  @keyframes moverNube {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(100vw + 250px)); }
+  }
+
+  /* 🌸 FLORES */
+  .flor {
+    position: fixed;
+    font-size: clamp(16px, 3vw, 26px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3;
+    transition: opacity 1.5s ease;
+    will-change: transform;
+  }
+  .flor.visible { opacity: 1; animation: caerFlor linear infinite; }
+
+  @keyframes caerFlor {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* 🦋 MARIPOSAS */
+  .mariposa {
+    position: fixed;
+    font-size: clamp(16px, 2.8vw, 24px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3;
+    transition: opacity 1.5s ease;
+    will-change: transform;
+  }
+  .mariposa.visible { opacity: 1; }
+
+  @keyframes volarMariposa {
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    25%  { transform: translate(30vw, -20vh) rotate(15deg); }
+    50%  { transform: translate(60vw, 10vh) rotate(-10deg); }
+    75%  { transform: translate(40vw, -30vh) rotate(20deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+  }
+
+  /* ✉️ SOBRE */
+  .sobre-contenedor {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    transition: opacity 1s ease, transform 1s ease;
+    max-width: 100%;
+  }
+  .sobre-contenedor.oculto {
+    opacity: 0;
+    transform: scale(0.5);
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .sobre {
+    width: clamp(150px, 40vw, 220px);
+    height: clamp(100px, 27vw, 150px);
+    background: linear-gradient(135deg, #d4af37, #b8860b);
+    border-radius: 10px;
+    margin: 0 auto clamp(18px, 4vw, 30px);
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 60px rgba(212,175,55,0.3);
+    animation: flotarSobre 3s ease-in-out infinite;
+  }
+  @keyframes flotarSobre {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .sobre::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 0;
+    border-left: clamp(75px, 20vw, 110px) solid transparent;
+    border-right: clamp(75px, 20vw, 110px) solid transparent;
+    border-top: clamp(50px, 13.5vw, 75px) solid #c9a227;
+    border-radius: 10px 10px 0 0;
+  }
+  .sobre::after {
+    content: '❤️';
+    position: absolute;
+    top: 36%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(20px, 4vw, 30px);
+    filter: drop-shadow(0 0 10px rgba(255,0,80,0.8));
+    z-index: 2;
+  }
+
+  .btn-abrir {
+    padding: clamp(11px, 2.5vw, 15px) clamp(28px, 7vw, 45px);
+    font-size: clamp(14px, 3vw, 18px);
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #e91e63, #ad1457);
+    border: 2px solid #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 25px rgba(233,30,99,0.5);
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+    min-height: 44px;
+  }
+  .btn-abrir:hover, .btn-abrir:focus {
+    transform: scale(1.08);
+    box-shadow: 0 12px 35px rgba(233,30,99,0.8);
+    background: linear-gradient(135deg, #f06292, #e91e63);
+    outline: none;
+  }
+  .btn-abrir:active { transform: scale(0.96); }
+
+  .texto-invitacion {
+    color: #f5f0c8;
+    font-size: clamp(14px, 3vw, 17px);
+    margin-bottom: clamp(18px, 4vw, 25px);
+    text-shadow: 0 0 15px rgba(245,240,200,0.6);
+    letter-spacing: 1px;
+    animation: brillar 2.5s ease-in-out infinite;
+  }
+  @keyframes brillar {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  /* 💌 CARTA — Centrada perfectamente */
+  .carta {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    z-index: 5;
+    max-width: min(620px, calc(100vw - 24px));
+    max-height: calc(100vh - 40px);
+    max-height: calc(100dvh - 40px);
+    width: 100%;
+    background: rgba(255, 255, 255, 0.93);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: clamp(14px, 3vw, 22px);
+    padding: clamp(24px, 6vw, 48px) clamp(20px, 5vw, 42px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15),
+                0 0 100px rgba(255,213,79,0.3);
+    border: 1px solid rgba(255,255,255,0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease, transform 1s ease, visibility 1s;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .carta.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* Scrollbar personalizado */
+  .carta::-webkit-scrollbar { width: 8px; }
+  .carta::-webkit-scrollbar-track { background: rgba(216,27,96,0.05); border-radius: 10px; }
+  .carta::-webkit-scrollbar-thumb {
+    background: rgba(216,27,96,0.35);
+    border-radius: 10px;
+  }
+  .carta::-webkit-scrollbar-thumb:hover { background: rgba(216,27,96,0.55); }
+
+  .carta h1 {
+    text-align: center;
+    color: #d81b60;
+    font-size: clamp(1.15rem, 4.5vw, 1.7rem);
+    margin-bottom: clamp(18px, 4vw, 26px);
+    line-height: 1.4;
+    text-shadow: 0 2px 8px rgba(216,27,96,0.15);
+  }
+
+  /* ✍️ NOMBRE CON ANIMACIÓN DE ESCRITURA — versión fluida */
+  .nombre-escritura {
+    display: inline;
+    color: #d81b60;
+    font-weight: bold;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  /* El cursor va pegado al último carácter escrito */
+  .nombre-escritura.escribiendo::after {
+    content: '|';
+    display: inline-block;
+    color: #d81b60;
+    font-weight: 400;
+    margin-left: 1px;
+    animation: cursorParpadeo 0.7s step-end infinite;
+  }
+
+  @keyframes cursorParpadeo {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Brillo cuando termina de escribir */
+  .nombre-escritura.terminado {
+    animation: brilloNombre 2s ease-in-out infinite;
+  }
+  @keyframes brilloNombre {
+    0%, 100% { text-shadow: 0 0 8px rgba(216,27,96,0.4); }
+    50% { text-shadow: 0 0 20px rgba(216,27,96,0.9), 0 0 30px rgba(255,182,193,0.7); }
+  }
+
+  .carta p {
+    color: #4a4a4a;
+    font-size: clamp(0.92rem, 2.5vw, 1.08rem);
+    line-height: 1.85;
+    margin-bottom: clamp(14px, 3vw, 20px);
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    animation: aparecerTexto 1s ease backwards;
+  }
+  .carta p:nth-of-type(1) { animation-delay: 4.2s; }
+  .carta p:nth-of-type(2) { animation-delay: 4.8s; }
+  .carta p:nth-of-type(3) { animation-delay: 5.4s; }
+  .carta p:nth-of-type(4) { animation-delay: 6s; }
+
+  @keyframes aparecerTexto {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .firma {
+    text-align: right !important;
+    color: #d81b60 !important;
+    font-style: italic;
+    font-size: clamp(1rem, 2.7vw, 1.15rem) !important;
+    margin-top: clamp(18px, 4vw, 25px);
+  }
+
+  /* 📱 Ajustes para pantallas muy pequeñas */
+  @media (max-width: 360px) {
+    .carta { padding: 20px 16px; border-radius: 12px; max-height: calc(100dvh - 20px); }
+    .carta p { text-align: left; }
+    .btn-abrir { padding: 10px 22px; font-size: 13px; }
+  }
+
+  /* 📱 Landscape en móvil */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .sobre { width: 120px; height: 80px; margin-bottom: 15px; }
+    .sobre::before {
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+      border-top: 40px solid #c9a227;
+    }
+    .texto-invitacion { margin-bottom: 12px; font-size: 13px; }
+    .sol { width: 70px; height: 70px; }
+    .carta { max-height: calc(100dvh - 16px); }
+  }
+
+  /* 🖥️ Pantallas grandes */
+  @media (min-width: 1200px) {
+    .carta { max-width: 680px; padding: 55px 50px; }
+  }
+
+  /* ♿ Accesibilidad */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.3s !important;
+    }
+  }
+</style>
+</head>
+<body class="noche">
+
+  <div class="luna" id="luna"></div>
+  <div class="sol" id="sol"></div>
+
+  <div class="nube nube1" id="nube1"></div>
+  <div class="nube nube2" id="nube2"></div>
+  <div class="nube nube3" id="nube3"></div>
+
+  <!-- Pantalla inicial con el sobre -->
+  <div class="sobre-contenedor" id="sobreContenedor">
+    <p class="texto-invitacion">💫 Tengo algo para ti 💫</p>
+    <div class="sobre"></div>
+    <button class="btn-abrir" onclick="abrirCarta()">Abrir Carta 💌</button>
+  </div>
+
+  <!-- Carta -->
+  <div class="carta" id="carta">
+    <h1>
+      ✨ ¡Buenos días.. Mi
+      <span class="nombre-escritura" id="nombreEscritura"></span>
+      !! ✨
+    </h1>
+
+    <p>Espero de todo corazón que hayas tenido unos dulces sueños y que tu descanso haya sido profundamente tranquilo. Despierta con calma, por favor, porque no imaginas cuánto hace falta tu presencia; tú eres esa luz tan bonita que ilumina el día y llena de calidez cualquier espacio. Deseo que hoy cada hora te regale paz, una bonita sonrisa y una jornada excelente repleta de pequeños momentos de felicidad. ☀️💛</p>
+
+    <p>Sé muy bien que en estos momentos la salud no nos está acompañando como quisiéramos, pero no perdamos la fe: paso a paso, con paciencia y mucho cuidado, sé que nos iremos recuperando por completo. Somos fuertes y todo va a mejorar muy pronto, vas a ver que sí. 🌿🩹</p>
+
+    <p>Hoy las circunstancias no me permiten estar ahí cerquita de ti para acompañarte ni abrazarte, pero la distancia es solo de un día porque mañana sí estaré a tu lado. No quiero que pase ni un solo segundo de este día sin que recuerdes lo infinitamente valiosa, única y especial que eres para mí. 🌸✨</p>
+
+    <p class="firma"> para ti Nikii !!! 💛</p>
+  </div>
+
+<script>
+  /* ⭐ Estrellas */
+  (function crearEstrellas() {
+    const cantidad = window.innerWidth < 600 ? 40 : 70;
+    for (let i = 0; i < cantidad; i++) {
+      const estrella = document.createElement('div');
+      estrella.className = 'estrella';
+      const tamaño = Math.random() * 2.5 + 1;
+      estrella.style.width = tamaño + 'px';
+      estrella.style.height = tamaño + 'px';
+      estrella.style.left = Math.random() * 100 + 'vw';
+      estrella.style.top = Math.random() * 100 + 'vh';
+      estrella.style.animationDelay = Math.random() * 3 + 's';
+      document.body.appendChild(estrella);
+    }
+  })();
+
+  /* 🌸 Flores y 🦋 mariposas */
+  const floresEmojis = ['🌸', '🌺', '🌼', '🌷', '💮', '🏵️'];
+  const mariposasEmojis = ['🦋'];
+
+  (function crearFlores() {
+    const cantidad = window.innerWidth < 600 ? 8 : 14;
+    for (let i = 0; i < cantidad; i++) {
+      const flor = document.createElement('div');
+      flor.className = 'flor';
+      flor.textContent = floresEmojis[Math.floor(Math.random() * floresEmojis.length)];
+      flor.style.left = Math.random() * 100 + 'vw';
+      flor.style.animationDuration = (Math.random() * 8 + 10) + 's';
+      flor.style.animationDelay = (Math.random() * 8) + 's';
+      document.body.appendChild(flor);
+    }
+  })();
+
+  (function crearMariposas() {
+    const cantidad = window.innerWidth < 600 ? 3 : 5;
+    for (let i = 0; i < cantidad; i++) {
+      const mariposa = document.createElement('div');
+      mariposa.className = 'mariposa';
+      mariposa.textContent = mariposasEmojis[0];
+      mariposa.style.left = (Math.random() * 40) + 'vw';
+      mariposa.style.top = (Math.random() * 60 + 20) + 'vh';
+      mariposa.style.animation = `volarMariposa ${20 + Math.random() * 15}s ease-in-out infinite`;
+      mariposa.style.animationDelay = (Math.random() * 10) + 's';
+      document.body.appendChild(mariposa);
+    }
+  })();
+
+  /* ✍️ FUNCIÓN DE ESCRITURA FLUIDA — letra por letra con JavaScript */
+  function escribirNombre(elemento, texto, velocidad = 150) {
+    return new Promise((resolve) => {
+      elemento.textContent = '';
+      elemento.classList.add('escribiendo');
+
+      let i = 0;
+      const total = texto.length;
+
+      function escribirSiguiente() {
+        if (i < total) {
+          elemento.textContent += texto.charAt(i);
+          i++;
+          // Pequeña variación aleatoria para que se sienta más humano
+          const variacion = velocidad + (Math.random() * 60 - 30);
+          setTimeout(escribirSiguiente, variacion);
+        } else {
+          // Terminó de escribir
+          setTimeout(() => {
+            elemento.classList.remove('escribiendo');
+            elemento.classList.add('terminado');
+            resolve();
+          }, 400);
+        }
+      }
+
+      escribirSiguiente();
+    });
+  }
+
+  /* 💌 Función principal */
+  function abrirCarta() {
+    const sobre = document.getElementById('sobreContenedor');
+    const carta = document.getElementById('carta');
+    const sol = document.getElementById('sol');
+    const luna = document.getElementById('luna');
+    const nombre = document.getElementById('nombreEscritura');
+
+    // 1. Ocultar el sobre
+    sobre.classList.add('oculto');
+
+    // 2. Transición a fondo de día
+    setTimeout(() => {
+      document.body.classList.remove('noche');
+      document.body.classList.add('dia');
+
+      luna.style.opacity = '0';
+      document.querySelectorAll('.estrella').forEach(e => {
+        e.style.transition = 'opacity 1s';
+        e.style.opacity = '0';
+      });
+
+      sol.classList.add('visible');
+    }, 500);
+
+    // 3. Mostrar nubes, flores y mariposas
+    setTimeout(() => {
+      document.getElementById('nube1').classList.add('visible');
+      document.getElementById('nube2').classList.add('visible');
+      document.getElementById('nube3').classList.add('visible');
+      document.querySelectorAll('.flor').forEach(f => f.classList.add('visible'));
+      document.querySelectorAll('.mariposa').forEach(m => m.classList.add('visible'));
+    }, 1500);
+
+    // 4. Mostrar la carta centrada
+    setTimeout(() => {
+      carta.classList.add('visible');
+
+      // 5. Iniciar animación de escritura del nombre
+      setTimeout(() => {
+        escribirNombre(nombre, 'Nikiii', 160);
+      }, 800);
+    }, 1800);
+  }
+</script>
+</body>
+</html>
